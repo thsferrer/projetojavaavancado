@@ -1,24 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	<head>
 		<meta charset="UTF-8" />
 			<title>Livros</title>
 	</head>
 			<body>
 				<center>
-					<h1>Formulário de Livros</h1>
+					<h1>Inclusão/Alteração de Livros</h1>
 					<br/>
-					<form method="post" action="/livros/gravar">
-					    <p>
-					    <label> Nome: </label>
-					    	<input type="text" name="nome">
-					    </p>
-					    <p>
-					    <label> Quantidade Páginas: </label>
-					    	<input type="text" name="quantidadePaginas">
-					    </p>
-					    <input type="submit">
+					<form th:action="@{/livros/gravar}"
+    				method="post" th:object="${livro}" action="#" >
+    				<input type="hidden"  th:field="*{id}" />
+    				Nome: <input type="text" name="nome" th:field="*{nome}"> <br/>
+    				Quantidade Páginas: <input type="text" name="quantidadePaginas" th:field="*{quantidadePaginas}"><br/>
+    				<select th:object="${livro}" th:field="*{autor}">
+   	 					<option value="">Selecione o Autor</option>
+   	 						<option th:each="autor : ${autores}"
+   		 						th:value="${autor.id}" th:utext="${autor.nome} "
+   								 selected="selected"></option>
+    				</select><br/>
+    				<input type="submit" value="Enviar">
 					</form>
+
 				</center>
 			</body>
 </html>

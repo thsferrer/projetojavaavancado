@@ -18,6 +18,12 @@ public class Livro {
 	@JoinColumn(name = "autor_id")
 	private Autor autor;
 	
+	public Autor getAutor() {
+		return autor;
+	}
+	public void setAutor(Autor autor) {
+		this.autor = autor;
+	}
 	public Long getId() {
 		return id;
 	}
