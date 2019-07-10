@@ -1,19 +1,42 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-	<head>
-		<meta charset="UTF-8" />
-			<title>Autores</title>
+		<head>
+		    <meta charset="UTF-8" />
+		    <title>Biblioteca</title>
+		
+		    <!-- Bootstrap -->
+		    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />
+		    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap-theme.min.css}" />
+		    <link rel="stylesheet" th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.css}" />
 	</head>
 			<body>
 				<center>
-					<h1>Inclusão/Alteração de Autores</h1>
+				<div class="container">
+				    <nav class="navbar navbar-default navbar-static-top">
+				        <div class="navbar-header">
+				            <a class="navbar-brand" th:href="@{/}">
+				                <img th:src="@{/images/livros.jpg}" src="../static/images/livros.jpg" width="30px" /></a>
+				        </div>
+				        <ul class="nav navbar-nav">
+				            <li sec:authorize="hasAuthority('ROLE_BASIC')"><a class="brand" th:href="@{/livros/list}" href="#"> Livros </a></li>
+				            <li sec:authorize="hasAuthority('ROLE_BASIC')"><a class="brand" th:href="@{/autores/list}" href="#"> Autores </a></li>
+				            <li sec:authorize="isAnonymous()"><a th:href="@{/registration}" href="#"> Registro </a></li>
+				            <li sec:authorize="isAnonymous()"><a th:href="@{/login}" href="#"> Login </a></li>
+				            <li sec:authorize="hasAuthority('ROLE_ADMIN')" ><a th:href="@{/user/listadmin}" href="#"> Lista Admin</a></li>
+				            <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}" href="#"> Logout </a></li>
+				        </ul>
+				    </nav>
+					<h1 layout:fragment="header">Inclusão/Alteração de Autores</h1>
 					<br/>
 					<form th:action="@{/autores/gravar}"
     				method="post" th:object="${autor}" action="#" >
+    				<div class="input-group">
+  					<div class="input-group-prepend">
     				<input type="hidden"  th:field="*{id}" />
-    				Nome: <input type="text" name="nome" th:field="*{nome}"> <br/>
-    				<input type="submit" value="Enviar">
+    				<span class="input-group-text">Nome:</span>
+    				 <input type="text" name="nome" th:field="*{nome}" class="form-control"> <br/>
+    				<input type="submit" value="Enviar" class="btn btn-success">
 					</form>
 				</center>
 			</body>

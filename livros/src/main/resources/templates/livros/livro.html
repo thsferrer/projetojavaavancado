@@ -2,27 +2,62 @@
 <html xmlns:th="http://www.thymeleaf.org"
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	<head>
-		<meta charset="UTF-8" />
-			<title>Livros</title>
+		    <meta charset="UTF-8" />
+		    <title>Biblioteca</title>
+		
+		    <!-- Bootstrap -->
+		    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />
+		    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap-theme.min.css}" />
+		    <link rel="stylesheet" th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.css}" />
 	</head>
 			<body>
 				<center>
-					<h1>Inclusão/Alteração de Livros</h1>
+				<div class="container">
+   	<nav class="navbar navbar-default navbar-static-top">
+        		<div class="navbar-header">
+            		<a class="navbar-brand" th:href="@{/}">
+                	<img th:src="@{/images/livros.jpg}" src="../static/images/livros.jpg" width="30px" /></a>
+        		</div>
+        <ul class="nav navbar-nav">
+            <li sec:authorize="hasAuthority('ROLE_BASIC')"><a class="brand" th:href="@{/livros/list}" href="#"> Livros </a></li>
+            <li sec:authorize="hasAuthority('ROLE_BASIC')"><a class="brand" th:href="@{/autores/list}" href="#"> Autores </a></li>
+            <li sec:authorize="isAnonymous()"><a th:href="@{/registration}" href="#"> Registro </a></li>
+            <li sec:authorize="isAnonymous()"><a th:href="@{/login}" href="#"> Login </a></li>
+            <li sec:authorize="hasAuthority('ROLE_ADMIN')" ><a th:href="@{/user/listadmin}" href="#"> Lista Admin</a></li>
+            <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}" href="#"> Logout </a></li>
+        </ul>
+    </nav>
+					<h1 layout:fragment="header">Inclusão/Alteração de Livros</h1>
 					<br/>
+					<div layout:fragment="content">
 					<form th:action="@{/livros/gravar}"
     				method="post" th:object="${livro}" action="#" >
+    				<div class="input-group">
+  					<div class="input-group-prepend">
     				<input type="hidden"  th:field="*{id}" />
-    				Nome: <input type="text" name="nome" th:field="*{nome}"> <br/>
-    				Quantidade Páginas: <input type="text" name="quantidadePaginas" th:field="*{quantidadePaginas}"><br/>
-    				<select th:object="${livro}" th:field="*{autor}">
+    				<span class="input-group-text"> Nome: </span>
+    				</div>
+    				 <input type="text" name="nome" th:field="*{nome}" class="form-control"> <br/>
+    				<br/>
+    				<div class="input-group-prepend">
+    				<span class="input-group-text"> Quantidade de Páginas: </span>
+    				</div>
+    				 <input class="form-control" type="text" name="quantidadePaginas" th:field="*{quantidadePaginas}"><br/>
+    				<br/>
+    				<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+					    <label class="input-group-text" for="inputGroupSelect01">Autor(es):</label>
+					  </div>
+    				<select class="custom-select" id="inputGroupSelect01" th:object="${livro}" th:field="*{autor}">
    	 					<option value="">Selecione o Autor</option>
    	 						<option th:each="autor : ${autores}"
    		 						th:value="${autor.id}" th:utext="${autor.nome} "
    								 selected="selected"></option>
-    				</select><br/>
-    				<input type="submit" value="Enviar">
+    				</select><br/></div>
+    				<br/>
+    				<input type="submit" class="btn btn-success" value="Enviar">
 					</form>
-
+					</div>
 				</center>
 			</body>
 </html>
