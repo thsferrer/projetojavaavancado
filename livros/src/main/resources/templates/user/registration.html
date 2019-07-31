@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Biblioteca</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap-theme.min.css}" />
+    <link rel="stylesheet" th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.css}" />
+
+</head>
+<body>
+<center>
+<div class="container">
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/}">
+                <img th:src="@{/images/livros.jpg}" src="../static/images/livros.jpg" width="30px" /></a>
+        </div>
+        <ul class="nav navbar-nav">
+				        	<li sec:authorize="hasAuthority('ROLE_BASIC')"><a class="brand" th:href="@{/livros/list}" href="#"> Livros </a></li>
+				            <li sec:authorize="hasAuthority('ROLE_BASIC')"><a class="brand" th:href="@{/autores/list}" href="#"> Autores </a></li>
+				             <li sec:authorize="hasAuthority('ROLE_ADMIN')"><a class="brand" th:href="@{/livros/listadmin}" href="#"> Admin Livros </a></li>
+            				<li sec:authorize="hasAuthority('ROLE_ADMIN')"><a class="brand" th:href="@{/autores/listadmin}" href="#"> Admin Autores </a></li>
+				            <li sec:authorize="hasAuthority('ROLE_ADMIN')"><a class="brand" th:href="@{listadmin}" href="#"> Admin Usuários </a></li>
+				            <li sec:authorize="isAnonymous()"><a th:href="@{registration}" href="#"> Registro </a></li>
+				            <li sec:authorize="isAnonymous()"><a th:href="@{login}" href="#"> Login </a></li>
+				            <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}" href="#"> Logout </a></li>
+		</ul>
+    </nav>
+    <h1 layout:fragment="header">Registro</h1>
+    <div layout:fragment="content">    
+    <form id="userForm" th:action="@{/user/registration}" th:object="${userForm}" action="#" method="post">
+    	<div class="input-group">
+  		<div class="input-group-prepend">
+    	<span class="input-group-text"> Usuário: </span>
+    	</div>
+		<input type="text" th:field="*{username}"/><span  th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Nome Error</span><br/>
+		<br/>
+		<div class="input-group-prepend">
+		<span class="input-group-text"> Senha: </span>
+		</div>
+		<input type="password" th:field="*{password}"/><span  th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Nome Error</span><br/>
+		<br/>
+		<input type="submit" class="btn btn-success" name="login" value="Entrar" />
+	</form>    
+    </div>
+<!--  JQuery -->
+<script type="text/javascript" th:src="@{/webjars/jquery/3.1.1/jquery.min.js}" ></script>
+<script type="text/javascript" th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.js}" ></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}" ></script>
+
+</center>
+</body>
+</html>

@@ -28,6 +28,13 @@ public class AutorController {
 		return new ModelAndView("autores/list", "listarAutores", autores);
 	}
 	
+	@GetMapping("/listadmin")
+	public ModelAndView listadmin() 
+	{
+		List<Autor> autores = autorService.listarAutores();
+		return new ModelAndView("autores/listadmin", "listarAutores", autores);
+	}
+	
 	@GetMapping("/novo")
 	public ModelAndView newAutor(@ModelAttribute Autor autor)
 	{

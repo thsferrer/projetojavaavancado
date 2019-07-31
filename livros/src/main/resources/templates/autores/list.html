@@ -18,20 +18,21 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
             		<a class="navbar-brand" th:href="@{/}">
                 	<img th:src="@{/images/livros.jpg}" src="../static/images/livros.jpg" width="30px" /></a>
         		</div>
-        <ul class="nav navbar-nav">
-            <li sec:authorize="hasAuthority('ROLE_BASIC')"><a class="brand" th:href="@{/livros/list}" href="#"> Livros </a></li>
-            <li sec:authorize="hasAuthority('ROLE_BASIC')"><a class="brand" th:href="@{/autores/list}" href="#"> Autores </a></li>
-            <li sec:authorize="isAnonymous()"><a th:href="@{/registration}" href="#"> Registro </a></li>
-            <li sec:authorize="isAnonymous()"><a th:href="@{/login}" href="#"> Login </a></li>
-            <li sec:authorize="hasAuthority('ROLE_ADMIN')" ><a th:href="@{/user/listadmin}" href="#"> Lista Admin</a></li>
-            <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}" href="#"> Logout </a></li>
-        </ul>
+       <ul class="nav navbar-nav">
+				            <li sec:authorize="hasAuthority('ROLE_BASIC')"><a class="brand" th:href="@{/livros/list}" href="#"> Livros </a></li>
+				            <li sec:authorize="hasAuthority('ROLE_BASIC')"><a class="brand" th:href="@{/autores/list}" href="#"> Autores </a></li>
+				             <li sec:authorize="hasAuthority('ROLE_ADMIN')"><a class="brand" th:href="@{/livros/listadmin}" href="#"> Admin Livros </a></li>
+            				<li sec:authorize="hasAuthority('ROLE_ADMIN')"><a class="brand" th:href="@{/autores/listadmin}" href="#"> Admin Autores </a></li>
+				           <li sec:authorize="hasAuthority('ROLE_ADMIN')"><a class="brand" th:href="@{listadmin}" href="#"> Admin Usuários </a></li>
+				            <li sec:authorize="isAnonymous()"><a th:href="@{/registration}" href="#"> Registro </a></li>
+				            <li sec:authorize="isAnonymous()"><a th:href="@{/login}" href="#"> Login </a></li>
+				            <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}" href="#"> Logout </a></li>
+	</ul>
     </nav>
 					<h1 layout:fragment="header">Autores</h1>
-				<table>
+				<table class="table">
 					<tr th:each="autor : ${listarAutores}">
-						<td th:text="${autor.id}">1</td>
-						<td><a href="#" th:href="@{'/autores/alterar/'+${autor.id}}" th:text="${autor.nome}"> Nome </a></td>
+						<td th:text="${autor.nome}"> Nome </td>
 					</tr>
 				</table>
 			</center>				
