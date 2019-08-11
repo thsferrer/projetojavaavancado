@@ -3,8 +3,17 @@ package br.biblioteca.livros.entidades;
 import java.util.ArrayList;
 import java.util.List;
 
-public class User {
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
+
+@Entity
+public class User {
+	
+	 @Id
+	
 	private String username;
 
 	private String password;
@@ -15,8 +24,9 @@ public class User {
 		this.username = username;
 		this.password = password;
 	}
-
-	private List<Role> roles = new ArrayList<>();
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+    private List<Role> roles = new ArrayList<>();
 
 	public String getUsername() {
 		return username;

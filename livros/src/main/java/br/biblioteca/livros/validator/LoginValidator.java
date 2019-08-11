@@ -1,20 +1,23 @@
 package br.biblioteca.livros.validator;
 
+import br.biblioteca.livros.entidades.User;
+import br.biblioteca.livros.service.SecurityService;
+import br.biblioteca.livros.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
-
-import br.biblioteca.livros.entidades.User;
-import br.biblioteca.livros.service.UserService;
-
 
 @Component
 public class LoginValidator implements Validator {
 	
 	@Autowired
 	private UserService userService;
+
+    @Autowired
+    private SecurityService securityService;
 
 	@Override
 	public boolean supports(Class<?> aClass) {
@@ -32,6 +35,12 @@ public class LoginValidator implements Validator {
 		if (userService.findByUsername(user.getUsername()) == null) {
 			errors.rejectValue("username", "NotExist.userForm.username");
 		}
+
+        try {
+            securityService.login(user.getUsername(), user.getPassword());
+        }catch (BadCredentialsException e){
+            errors.rejectValue("password", "BadCredentials.userForm.username");
+        }
 		
 	}
 }

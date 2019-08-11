@@ -1,25 +1,41 @@
 package br.biblioteca.livros.entidades;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
+@Entity
 public class Role {
-	
-	String role;
-	
-	public Role(String role) {
-		this.role = role;
-	}
 
-	public String getRole() {
-		return role;
-	}
+    @Id
+    @GeneratedValue
+    public Long id;
 
-	public void setRole(String role) {
-		this.role = role;
-	}
+    public String role;
 
-	@Override
-	public String toString() {
-		return "Role [role=" + role + "]";
-	}
+    public Role() { }
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Role(String role) {
+        this.role = role;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "Role [role=" + role + "]";
+    }
 }
