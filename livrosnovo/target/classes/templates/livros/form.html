@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:form="http://www.w3.org/1999/xhtml"
+      layout:decorate="layout">
+<head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+</head>
+<body>
+
+<nav layout:fragment="header" aria-label="breadcrumb" role="navigation">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#" th:href="@{/livros/listadmin}">Livros</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Novo Livro</li>
+    </ol>
+</nav>
+
+<div layout:fragment="content" class="container">
+
+    <form id="livroForm" th:action="@{/livros/gravar}" method="post" th:object="${livro}" action="#" >
+        <div class="form-group row">
+            <input type="hidden"  th:field="*{id}" />
+
+            <label for="staticTitulo">Título</label>
+            <div>
+                <input type="text" th:field="*{nome}"  class="form-control-plaintext" id="staticTitulo" >
+                <span  th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">Nome Error</span>
+            </div>
+            <label for="staticTitulo">Autor</label>
+            <div>
+                <select form="livroForm" th:object="${livro}" th:field="*{autor}" class="form-control">
+                    <option value="">Selecione o Autor</option>
+                    <option th:each="autor : ${autores}" th:value="${autor.id}" th:utext="${autor.nome} " selected="selected"></option>
+                </select>
+            </div>
+            <label for="staticPaginas">Total Páginas</label>
+            <div>
+                <input type="text" th:field="*{quantidadePaginas}" class="form-control-plaintext" id="staticPaginas" >
+                <span  th:if="${#fields.hasErrors('quantidadePaginas')}" th:errors="*{quantidadePaginas}">Quantidade de pagina Error</span>
+            </div>
+            <button type="submit" class="btn btn-success">Enviar</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

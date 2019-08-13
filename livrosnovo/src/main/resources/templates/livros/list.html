@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+</head>
+<body>
+
+<h1 layout:fragment="header">
+    Livros
+</h1>
+
+<div layout:fragment="content" class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Título</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="livro : ${livros}">
+            <td th:text="${livro.nome}"> Título </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

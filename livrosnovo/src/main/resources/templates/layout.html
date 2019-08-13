@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Biblioteca</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap-theme.min.css}" />
+    <link rel="stylesheet" th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.css}" />
+
+</head>
+<body style="background-color:#DFF4F9">
+<center>
+<div class="container">
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/}">
+                <img th:src="@{/img/livros.png}" src="../static/img/livros.jpg" width="50px" /></a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li sec:authorize="hasAuthority('ROLE_BASIC')"><a class="brand" th:href="@{/livros/list}" href="#"> Livros </a></li>
+            <li sec:authorize="hasAuthority('ROLE_BASIC')"><a class="brand" th:href="@{/autores/list}" href="#"> Autores </a></li>            
+            <li sec:authorize="hasAuthority('ROLE_ADMIN')"><a class="brand" th:href="@{/livros/listadmin}" href="#"> Admin Livros </a></li>
+            <li sec:authorize="hasAuthority('ROLE_ADMIN')"><a class="brand" th:href="@{/autores/listadmin}" href="#"> Admin Autores </a></li>
+            <li sec:authorize="isAnonymous()"><a th:href="@{/registration}" href="#"> Registro </a></li>
+            <li sec:authorize="isAnonymous()"><a th:href="@{/login}" href="#"> Login </a></li>
+            <li sec:authorize="hasAuthority('ROLE_ADMIN')" ><a th:href="@{/user/listadmin}" href="#"> Admin Usuários</a></li>
+            <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}" href="#"> Logout </a></li>
+        </ul>
+    </nav>
+    <h1 layout:fragment="header">cabeçalho falso</h1>
+    <div layout:fragment="content">content falso</div>
+</div>
+
+<!--  JQuery -->
+<script type="text/javascript" th:src="@{/webjars/jquery/3.1.1/jquery.min.js}" ></script>
+<script type="text/javascript" th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.js}" ></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}" ></script>
+</center>
+</body>
+</html>

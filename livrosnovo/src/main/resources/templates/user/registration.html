@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <title>Biblioteca</title>
+</head>
+<body>
+<h1 layout:fragment="header">Registre-se</h1>
+<div layout:fragment="content" class="container">
+    <form id="userForm" th:action="@{/registration}" th:object="${userForm}" action="#" method="post">
+    	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+	    <div class="form-group row">
+	    	<label for="username">Usuário</label>
+	        <br/>
+	        	<input type="text" th:field="*{username}" id="username" name="username" class="form-control-plaintext"/>
+	        	<span  th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Nome Error</span>
+	        <br/>
+	    	<label for="password">Senha</label>
+	        <br/>
+	        	<input type="text" th:field="*{password}" id="password" name="password" class="form-control-plaintext" />
+	        	<span  th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Nome Error</span>
+	        <br/>
+	        <br/>
+	        <button type="submit" class="btn btn-success">Registrar</button>
+	    </div>
+    </form>
+</div>
+</body>
+</html>
